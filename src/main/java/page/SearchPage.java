@@ -35,7 +35,7 @@ public class SearchPage extends BasePage{
         return array;
 
     }
-
+/*
     public ArrayList<String> getFirstStock(){
         ArrayList<String> array=new ArrayList<String>();
         System.out.println(array.add(Driver.getCurrentDriver().findElements(By.id("stockName")).get(0).getText()));
@@ -52,8 +52,8 @@ public class SearchPage extends BasePage{
         AndroidElement select2 = (AndroidElement) find(By.xpath("//*[contains(@resource-id, 'follow') and contains(@resource-id, '_btn')]"));
         array.add(select2.getAttribute("resourceId"));
         return array;
-    }
-
+    }*/
+    //添加股票自选
     public ArrayList<String>  addSelect(){
 
         ArrayList<String> array = new ArrayList<String>();
@@ -67,7 +67,7 @@ public class SearchPage extends BasePage{
         return array;
 
     }
-
+    //删除股票自选
     public ArrayList<String>  removeSelected(){
         ArrayList<String> array = new ArrayList<String>();
         AndroidElement removestock= (AndroidElement) find(By.xpath("//*[contains(@resource-id, 'follow') and contains(@resource-id, '_btn')]"));

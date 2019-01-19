@@ -9,11 +9,11 @@ import static java.lang.Thread.sleep;
 
 
 public class BasePage {
-
-    static AndroidElement waitfor(By locator) {
+    //元素连续两次找到的位置一样，才定位到元素
+    static AndroidElement find_two(By locator) {
         Point p1,p2;
-        p1 = Driver.getCurrentDriver().findElement(locator).getLocation();
         for (int i = 0; i < 20; i++){
+            p1 = Driver.getCurrentDriver().findElement(locator).getLocation();
             try {
                 sleep(200);
             } catch (InterruptedException e) {
@@ -29,22 +29,12 @@ public class BasePage {
 
     static AndroidElement find(By locator){
         try{
-            return waitfor(locator);
+            return find_two(locator);
         }catch (Exception e){
             Driver.getCurrentDriver().findElement(text("下次再说")).click();
-            return waitfor(locator);
+            return find_two(locator);
         }
     }
-
-    /*
-    static AndroidElement find(By locator){
-        try{
-            return Driver.getCurrentDriver().findElement(locator);
-        }catch (Exception e){
-            Driver.getCurrentDriver().findElement(text("下次再说")).click();
-            return Driver.getCurrentDriver().findElement(locator);
-        }
-    }*/
 
     static By locate(String locator){
         if(locator.matches("/.*")){
@@ -56,6 +46,5 @@ public class BasePage {
     static By text(String content){
         return By.xpath("//*[@text='"+ content + "']");
     }
-
 
 }

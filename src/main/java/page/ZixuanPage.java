@@ -14,7 +14,7 @@ public class ZixuanPage  extends BasePage{
         find(search).click();
         return new SearchPage();
     }
-
+/*
     public ArrayList<String> getStockAll(){
         ArrayList<String> array=new ArrayList<String>();
         for(WebElement e: Driver.getCurrentDriver().findElements(By.id("stockName"))){
@@ -22,7 +22,5 @@ public class ZixuanPage  extends BasePage{
         }
         return array;
     }
-
-
-
+*/
 }
