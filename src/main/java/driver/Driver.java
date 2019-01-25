@@ -14,23 +14,34 @@ import java.util.concurrent.TimeUnit;
 public class Driver {
 
     private static AndroidDriver<AndroidElement> driver;
+
     public static void start(){
-        DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
+        final DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
+
+        GlobalConfig config = GlobalConfig.load("/data/globalConfig.yaml");
+        config.appium.capabilities.keySet().forEach(key->{
+            Object value = config.appium.capabilities.get(key);
+            desiredCapabilities.setCapability(key,value);
+        });
+
+        /*
         desiredCapabilities.setCapability("platformName", "android");
         desiredCapabilities.setCapability("deviceName", "dd");
         desiredCapabilities.setCapability("appPackage", "com.xueqiu.android");
         desiredCapabilities.setCapability("appActivity", ".view.WelcomeActivityAlias");
         desiredCapabilities.setCapability("autoGrantPermissions", true);
-
+*/
         URL remoteUrl = null;
         try {
-            remoteUrl = new URL("http://127.0.0.1:4723/wd/hub");
+            //remoteUrl = new URL("http://127.0.0.1:4723/wd/hub");
+            remoteUrl = new URL(config.appium.url);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
 
         driver = new AndroidDriver(remoteUrl, desiredCapabilities);
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        //driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(config.appium.wait, TimeUnit.SECONDS);
     }
 
     public static AndroidDriver<AndroidElement> getCurrentDriver(){

@@ -1,3 +1,4 @@
+import driver.GlobalConfig;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -23,7 +24,7 @@ public class SearchTest {
         mainPage=MainPage.start();
         searchPage=mainPage.gotoSearch();
     }
-
+/*
     @ParameterizedTest
     @CsvSource({
             "pdd, 拼多多",
@@ -33,7 +34,16 @@ public class SearchTest {
     void 搜索测试(String keyword, String name){
         String content=searchPage.search(keyword).getAll().get(0);
         assertThat(content, equalTo(name));
+    }*/
+
+    @Test
+    void 搜索测试(){
+        GlobalConfig config= GlobalConfig.load("/data/globalConfig.yaml");
+        String content=searchPage.search(config.xueqiu.search).getAll().get(0);
+        assertThat(content, equalTo(config.xueqiu.searchexcept));
     }
+
+
 /*
     @Test
     void 选择(){
